@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="untitled:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/untitled_jar</output-path>
+    <root id="root">
+      <element id="archive" name="untitled.jar">
+        <element id="module-output" name="matlab-repro-logconfig" />
+      </element>
+    </root>
+  </artifact>
+</component>
