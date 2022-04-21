@@ -27,6 +27,12 @@ classdef LogConfigReproForR22A
             cfgLog4j2 = LogConfiguratorLog4j2;
             cfgLog4j2.configureBasicConsoleLogging;
             cfgLog4j2.spewHello;
+
+            cfgLog4j1 = LogConfiguratorLog4j1;
+            cfgLog4j1.spewHello;
+
+            slf = LogWithSlf4j;
+            slf.spewHello;
         end
 
     end

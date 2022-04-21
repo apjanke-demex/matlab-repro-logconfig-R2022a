@@ -6,6 +6,8 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
     %#ok<*INUSA>
     %#ok<*AGROW>
 
+    % Note: use \n instead of '%n' because the Matlab console wants Unix-style line
+    % endings, even on Windows.
     properties (Constant)
         ValidLevelNames string = {'OFF' 'FATAL' 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE' 'ALL'};
         % The default "long" appender pattern.
@@ -47,14 +49,15 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
         end
 
         function spewHello(obj)
-            fprintf("Here's hello using Log4j 2.x directly:\n");
+            emit("Here's hello using Log4j 2.x directly:\n");
             for levelName = obj.ValidLevelNames
                 msg = sprintf('Hello! (level %s)', levelName);
-                obj.emit('blah', levelName, msg);
+                obj.log('blah', levelName, msg);
             end
+            emit("\n");
         end
 
-        function emit(obj, logName, level, msg)
+        function log(obj, logName, level, msg)
             % Emit a log message directly with Log4j 2.
             arguments
                 obj LogConfiguratorLog4j2
@@ -183,7 +186,6 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
             end
             out = org.apache.logging.log4j.Level.(levelName);
         end
-
 
         function prettyPrintLogConfiguration(obj, verbose)
             % Displays the current log configuration to the console.

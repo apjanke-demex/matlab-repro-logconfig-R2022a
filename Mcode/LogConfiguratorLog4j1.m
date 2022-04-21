@@ -8,10 +8,11 @@ classdef LogConfiguratorLog4j1 < LogConfiguratorBase
     % Note: use \n instead of '%n' because the Matlab console wants Unix-style line
     % endings, even on Windows.
     properties (Constant)
+        ValidLevelNames string = {'OFF' 'FATAL' 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE' 'ALL'};
         % The default "long" appender pattern.
-        DefaultLongPattern = ['%d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
+        DefaultLongPattern string = ['%d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
         % The default "short" appender pattern.
-        DefaultShortPattern = ['%m' LF];
+        DefaultShortPattern string = ['%m' LF];
     end
 
     methods
@@ -39,6 +40,48 @@ classdef LogConfiguratorLog4j1 < LogConfiguratorBase
                     aRootAppender.setLayout(myLayout);
                 end
             end
+        end
+
+        function log(obj, logName, level, msg)
+            % Emit a log message directly with Log4j 1.
+            arguments
+                obj LogConfiguratorLog4j1
+                logName (1,1) string
+                level (1,1) string
+                msg string
+            end
+            import org.apache.log4j.*
+
+            logger = LogManager.getLogger(logName);
+            levelJ = obj.getLevel(level);
+            logger.log(levelJ, msg);
+        end
+
+        function spewHello(obj)
+            emit("Here's hello using Log4j 1.x directly:\n");
+            for levelName = obj.ValidLevelNames
+                msg = sprintf('Hello! (level %s)', levelName);
+                obj.log('blah', levelName, msg);
+            end
+            emit("\n");
+        end
+
+        function out = getLevel(obj, levelName)
+            % Gets the log4j Level enum object for a named level.
+            %
+            % out = getLog4jLevel(obj, levelName)
+            %
+            % Returns an org.apache.logging.log4j.Level object.
+            arguments
+                obj
+                levelName (1,1) string
+            end
+            import org.apache.log4j.*
+            levelName = upper(levelName);
+            if ~ismember(levelName, obj.ValidLevelNames)
+                error('Invalid levelName: ''%s''', levelName);
+            end
+            out = Level.(levelName);
         end
 
         function setRootConsoleAppenderPattern(obj, pattern)
