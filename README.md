@@ -18,6 +18,8 @@ repro.doRepro
 ## References
 
 * Matlab Tech Support cases:
+  * [Case #05490191](https://servicerequest.mathworks.com/mysr/cp_case_detail1?cc=us&id=5003q00001VGV5M) - SLF4J logging does not respect Log4j configuration in Matlab R2022a
+    * This is the case for this particular problem.
   * [Case #05479210](https://servicerequest.mathworks.com/mysr/cp_case_detail1?cc=us&id=5003q00001VFQeM) - R2022a binding SLF4J to log4j 2.x-1.2 bridge
   * TODO: Submit a request specifically about this issue.
 * [SLF4M](https://slf4m.janklab.net/) - My Matlab logging framework that uses SLF4J and Log4j
