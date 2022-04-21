@@ -1,5 +1,5 @@
 classdef LogConfigReproForR22A
-    % Repro code to demo problems apjanke is having with Matlab R2022a logging
+    % Repro code to demo problems apjanke is having with Matlab R2022a logging.
     %
     % Author: Andrew Janke <andrew@apjanke.net>
     %
@@ -37,6 +37,9 @@ classdef LogConfigReproForR22A
 
             slf = LogWithSlf4j;
             slf.spewHello;
+
+            acl = LogWithApacheCommonsLogging;
+            acl.spewHello;
         end
 
     end

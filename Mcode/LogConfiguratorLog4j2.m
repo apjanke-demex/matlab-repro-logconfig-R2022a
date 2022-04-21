@@ -1,5 +1,5 @@
 classdef LogConfiguratorLog4j2 < LogConfiguratorBase
-    % Configurator for Log4j 2.x
+    % Configurator for Log4j 2.x.
 
     %#ok<*MANU>
     %#ok<*INUSL>

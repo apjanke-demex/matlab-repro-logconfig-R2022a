@@ -1,5 +1,5 @@
-classdef LogWithSlf4j < LogConfiguratorBase
-    % Interface for SLF4J logging.
+classdef LogWithApacheCommonsLogging < LogConfiguratorBase
+    % Interface for Apache Commons Logging logging.
 
     %#ok<*MANU>
     %#ok<*INUSL>
@@ -7,23 +7,23 @@ classdef LogWithSlf4j < LogConfiguratorBase
     %#ok<*AGROW>
 
     properties
-        ValidLevelNames string = {'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE'};
+        ValidLevelNames string = {'FATAL', 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE'};
+        SafeLevelNames string = {'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE'};
     end
 
     methods
 
         function log(obj, logName, level, msg)
-            % Emit a log message directly with Log4j 1.
+            % Emit a log message through Commons Logging.
             arguments
-                obj LogWithSlf4j
+                obj LogWithApacheCommonsLogging
                 logName (1,1) string
                 level (1,1) string
                 msg string
             end
-            import org.slf4j.*
-            level = upper(level);
+            import org.apache.commons.logging.*
 
-            logger = LoggerFactory.getLogger(logName);
+            logger = LogFactory.getLog(logName);
             switch level
                 case "ERROR"
                     logger.error(msg);
@@ -36,13 +36,14 @@ classdef LogWithSlf4j < LogConfiguratorBase
                 case "TRACE"
                     logger.trace(msg);
                 otherwise
-                    error("Invalid level for SLF4J logging: %s", level)
+                    error("Invalid level for Apache Commons Logging logging: %s", level)
             end
+
         end
 
         function spewHello(obj)
-            emit("Here's hello using SLF4J:\n\n");
-            for levelName = obj.ValidLevelNames
+            emit("Here's hello using Apache Commons Logging:\n\n");
+            for levelName = obj.SafeLevelNames
                 msg = sprintf('Hello! (level %s)', levelName);
                 obj.log('blah', levelName, msg);
             end
