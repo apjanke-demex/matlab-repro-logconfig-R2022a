@@ -11,7 +11,7 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
     properties (Constant)
         ValidLevelNames string = {'OFF' 'FATAL' 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE' 'ALL'};
         % The default "long" appender pattern.
-        DefaultLongPattern string = ['log4j: %d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
+        DefaultLongPattern string = ['configged log4j: %d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
         % The default "short" appender pattern.
         DefaultShortPattern string = ['%m' LF];
     end
@@ -316,8 +316,6 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
                 appenderCfg = logCfg.getAppender(appenderName);
                 emit('  %s: %s\n', appenderName, appenderCfg.toString());
             end
-
-            emit('(Not fully implemented yet.)\n');
         end
 
         function prettyPrintLogConfigurationFromCurrentLogConfig(obj, verbose)

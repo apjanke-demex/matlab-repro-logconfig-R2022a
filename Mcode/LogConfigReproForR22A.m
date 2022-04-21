@@ -24,6 +24,10 @@ classdef LogConfigReproForR22A
 
         function doRepro(obj)
             % Do the whole main repro
+
+            ver -support
+            emit('\n\n');
+            
             cfgLog4j2 = LogConfiguratorLog4j2;
             cfgLog4j2.configureBasicConsoleLogging;
             cfgLog4j2.spewHello;
