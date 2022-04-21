@@ -99,6 +99,13 @@ I expected the log output from SLF4J logging to respect the same configuration t
 
 I have no theory as to what's going on here.
 
+### Workarounds
+
+A workaround for this would be to do our logging from M-code to the Log4j API directly, instead of using SLF4J. I'd rather not do this, for a couple reasons:
+
+1. SLF4J provides support for placeholder substitution in messages, and Log4j does not. This feature is exposed in our Matlab logging. Ditching it could require extensive changes to our code.
+2. Other Java libraries (including some shipped with Matlab and used by standard Matlab functions) may be logging through SLF4J, and I'd like to be able to capture and control that logging activity too.
+
 ## Author
 
 Andrew Janke <andrew@apjanke.net>.
