@@ -4,6 +4,8 @@ Repro code for Andrew Janke's Matlab R2022a log configuration problem.
 
 The issue is that the logging I do through the SLF4J API doesn't seem to respect the log configuration I set up using the Log4j 2 configuration API. This used to work in R2021b and earlier when I configured things using the Log4j 1 configuration API and then sent log messages through the SLF4J API.
 
+I think this effectively breaks [SLF4M](https://slf4m.janklab.net/) and any other code that's using SLF4J logging in Matlab. That's a bummer; logging is useful.
+
 ## Usage
 
 To use this repro code, get its Mcode folder on your Matlab path, and then use the `LogConfigReproForR22A` class:
