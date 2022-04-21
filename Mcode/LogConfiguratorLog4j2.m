@@ -11,7 +11,7 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
     properties (Constant)
         ValidLevelNames string = {'OFF' 'FATAL' 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE' 'ALL'};
         % The default "long" appender pattern.
-        DefaultLongPattern string = ['%d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
+        DefaultLongPattern string = ['log4j: %d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
         % The default "short" appender pattern.
         DefaultShortPattern string = ['%m' LF];
     end
@@ -49,7 +49,7 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
         end
 
         function spewHello(obj)
-            emit("Here's hello using Log4j 2.x directly:\n");
+            emit("Here's hello using Log4j 2.x directly:\n\n");
             for levelName = obj.ValidLevelNames
                 msg = sprintf('Hello! (level %s)', levelName);
                 obj.log('blah', levelName, msg);
@@ -80,7 +80,7 @@ classdef LogConfiguratorLog4j2 < LogConfiguratorBase
             cfgBld.setStatusLevel(Level.INFO);
             appenderBld = cfgBld.newAppender('stdout', 'CONSOLE');
             appenderBld.addAttribute('target', obj.getConsoleTargetEnum('SYSTEM_OUT'));
-            myPattern = obj.DefaultShortPattern;
+            myPattern = obj.DefaultLongPattern;
             appenderBld.add(cfgBld.newLayout('PatternLayout').addAttribute('pattern', myPattern));
             cfgBld.add(appenderBld);
             rootLoggerBld = cfgBld.newRootLogger(Level.INFO);

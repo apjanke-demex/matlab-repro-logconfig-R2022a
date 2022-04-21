@@ -41,7 +41,7 @@ classdef LogWithSlf4j < LogConfiguratorBase
         end
 
         function spewHello(obj)
-            emit("Here's hello using SLF4J:\n");
+            emit("Here's hello using SLF4J:\n\n");
             for levelName = obj.ValidLevelNames
                 msg = sprintf('Hello! (level %s)', levelName);
                 obj.log('blah', levelName, msg);

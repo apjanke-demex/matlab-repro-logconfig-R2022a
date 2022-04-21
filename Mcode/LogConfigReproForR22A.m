@@ -11,8 +11,8 @@ classdef LogConfigReproForR22A
     %
     % Example:
     %
-    % blah = LogConfigReproForR22A
-    % blah.doRepro
+    % repro = LogConfigReproForR22A
+    % repro.doRepro
 
     %#ok<*MANU>
     %#ok<*INUSL>

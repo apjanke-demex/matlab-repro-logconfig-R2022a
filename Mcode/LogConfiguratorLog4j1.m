@@ -10,7 +10,7 @@ classdef LogConfiguratorLog4j1 < LogConfiguratorBase
     properties (Constant)
         ValidLevelNames string = {'OFF' 'FATAL' 'ERROR' 'WARN' 'INFO' 'DEBUG' 'TRACE' 'ALL'};
         % The default "long" appender pattern.
-        DefaultLongPattern string = ['%d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
+        DefaultLongPattern string = ['log4j: %d{HH:mm:ss.SSS} %-5p %c{1} %x - %m' LF];
         % The default "short" appender pattern.
         DefaultShortPattern string = ['%m' LF];
     end
@@ -32,7 +32,7 @@ classdef LogConfiguratorLog4j1 < LogConfiguratorBase
                 % Set default pattern.
                 % This is something of a hack that relies on
                 % some assumptions about the logger tree state.
-                pattern = obj.DefaultShortPattern;
+                pattern = obj.DefaultLongPattern;
                 myLayout = org.apache.log4j.PatternLayout(pattern);
                 rootAppenders = rootLogger.getAllAppenders();
                 while rootAppenders.hasMoreElements()
@@ -58,7 +58,7 @@ classdef LogConfiguratorLog4j1 < LogConfiguratorBase
         end
 
         function spewHello(obj)
-            emit("Here's hello using Log4j 1.x directly:\n");
+            emit("Here's hello using Log4j 1.x directly:\n\n");
             for levelName = obj.ValidLevelNames
                 msg = sprintf('Hello! (level %s)', levelName);
                 obj.log('blah', levelName, msg);
